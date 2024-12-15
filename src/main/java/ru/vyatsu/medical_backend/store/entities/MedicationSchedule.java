@@ -11,14 +11,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "medicationschedules", schema = "core")
+@Table(name = "medication_schedules", schema = "core")
 public class MedicationSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "medication_trade_name", referencedColumnName = "tradeName")
+    @JoinColumn(name = "medication_id", referencedColumnName = "id")
     private Medication medication;
 
     @ManyToOne

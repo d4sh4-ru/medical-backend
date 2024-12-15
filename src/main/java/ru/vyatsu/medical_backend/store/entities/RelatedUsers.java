@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "relatedusers", schema = "core")
+@Table(name = "related_user", schema = "core")
 public class RelatedUsers {
     @EmbeddedId
     private RelatedUsersId id;

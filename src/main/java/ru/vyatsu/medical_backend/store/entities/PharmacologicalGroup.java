@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "pharmacologicalgroups", schema = "core")
+@Table(name = "pharmacological_groups", schema = "core")
 public class PharmacologicalGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +21,12 @@ public class PharmacologicalGroup {
     @Column(nullable = false, length = 255)
     @Pattern(regexp = "^[A-Za-zА-Яа-я0-9 -]+$")
     private String name;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "medication_pharmacological_groups",
+            joinColumns = @JoinColumn(name = "pharmacological_group_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "medication_id", referencedColumnName = "id")
+    )
+    private Set<Medication> medications;
 }

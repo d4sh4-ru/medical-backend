@@ -10,14 +10,14 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "administrationmethods", schema = "core")
+@Table(name = "administration_methods", schema = "core")
 public class AdministrationMethod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "medication_trade_name", referencedColumnName = "tradeName")
+    @JoinColumn(name = "medication_id", referencedColumnName = "id")
     private Medication medication;
 
     @Column(name = "single_dosage", length = 255)

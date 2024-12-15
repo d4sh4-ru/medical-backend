@@ -16,7 +16,7 @@ public class Instruction {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "medication_trade_name", referencedColumnName = "tradeName")
+    @JoinColumn(name = "medication_id", referencedColumnName = "id")
     private Medication medication;
 
     @Column(columnDefinition = "TEXT")

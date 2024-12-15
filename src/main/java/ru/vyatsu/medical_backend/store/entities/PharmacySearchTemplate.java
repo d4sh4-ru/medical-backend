@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "pharmacysearchtemplates", schema = "core")
+@Table(name = "pharmacy_search_templates", schema = "core")
 public class PharmacySearchTemplate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

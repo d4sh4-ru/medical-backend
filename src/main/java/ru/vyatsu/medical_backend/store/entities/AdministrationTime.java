@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "administrationtimes", schema = "core")
+@Table(name = "administration_times", schema = "core")
 public class AdministrationTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
