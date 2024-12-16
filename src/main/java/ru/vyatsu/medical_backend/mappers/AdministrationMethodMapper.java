@@ -20,13 +20,12 @@ public class AdministrationMethodMapper {
             return null;
         }
 
-        AdministrationMethodDto dto = new AdministrationMethodDto();
-        dto.setId(method.getId());
-        dto.setSingleDosage(method.getSingleDosage());
-        dto.setInterval(method.getInterval());
-        dto.setAdministrationTimes(method.getAdministrationTimes());
-
-        return dto;
+        return AdministrationMethodDto.builder()
+                .id(method.getId())
+                .singleDosage(method.getSingleDosage())
+                .interval(method.getInterval())
+                .administrationTimes(method.getAdministrationTimes())
+                .build();
     }
 
     public AdministrationMethod toAdministrationMethodEntity(AdministrationMethodDto dto) {
@@ -42,14 +41,13 @@ public class AdministrationMethodMapper {
                         dto.getAdministrationTimes()
                 ).orElse(null);
         if (method == null) {
-            method = new AdministrationMethod();
-            method.setId(dto.getId());
-            if (dto.getMedication() != null) {
-                method.setMedication(medicationRepository.findById(dto.getMedication()).orElse(null));
-            }
-            method.setSingleDosage(dto.getSingleDosage());
-            method.setInterval(dto.getInterval());
-            method.setAdministrationTimes(dto.getAdministrationTimes());
+            method = AdministrationMethod.builder()
+                    .id(dto.getId())
+                    .medication(medicationRepository.findById(dto.getMedication()).orElse(null))
+                    .singleDosage(dto.getSingleDosage())
+                    .interval(dto.getInterval())
+                    .administrationTimes(dto.getAdministrationTimes())
+                    .build();
         }
 
         return method;

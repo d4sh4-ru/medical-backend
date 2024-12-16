@@ -1,12 +1,14 @@
 package ru.vyatsu.medical_backend.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MedicationDto {
     private Integer id;
     private String tradeName;

@@ -15,32 +15,28 @@ public class MedicationMapper {
             return null;
         }
 
-        MedicationDto medicationDto = new MedicationDto();
-        medicationDto.setId(medication.getId());
-        medicationDto.setTradeName(medication.getTradeName());
-        medicationDto.setStorageConditions(medication.getStorageConditions());
-        medicationDto.setPrescription(medication.isPrescription());
-        medicationDto.setDietarySupplement(medication.isDietarySupplement());
-
-        medicationDto.setLegalEntityDetails(
-                (medication.getLegalEntities() == null || medication.getLegalEntities().isEmpty())
-                        ? Set.of()
-                        : mapLegalEntities(medication.getLegalEntities())
-        );
-
-        medicationDto.setPharmacologicalGroupNames(
-                (medication.getPharmacologicalGroups() == null || medication.getPharmacologicalGroups().isEmpty())
-                        ? Set.of()
-                        : mapPharmacologicalGroups(medication.getPharmacologicalGroups())
-        );
-
-        medicationDto.setReleaseFormDetails(
-                (medication.getReleaseForms() == null || medication.getReleaseForms().isEmpty())
-                        ? Set.of()
-                        : mapReleaseForms(medication.getReleaseForms())
-        );
-
-        return medicationDto;
+        return MedicationDto.builder()
+                .id(medication.getId())
+                .tradeName(medication.getTradeName())
+                .storageConditions(medication.getStorageConditions())
+                .isPrescription(medication.isPrescription())
+                .isDietarySupplement(medication.isDietarySupplement())
+                .legalEntityDetails(
+                        (medication.getLegalEntities() == null || medication.getLegalEntities().isEmpty())
+                                ? Set.of()
+                                : mapLegalEntities(medication.getLegalEntities())
+                )
+                .pharmacologicalGroupNames(
+                        (medication.getPharmacologicalGroups() == null || medication.getPharmacologicalGroups().isEmpty())
+                                ? Set.of()
+                                : mapPharmacologicalGroups(medication.getPharmacologicalGroups())
+                )
+                .releaseFormDetails(
+                        (medication.getReleaseForms() == null || medication.getReleaseForms().isEmpty())
+                                ? Set.of()
+                                : mapReleaseForms(medication.getReleaseForms())
+                )
+                .build();
     }
 
     public Medication dietarySupplementToMedication(DietarySupplementDto dietarySupplementDto) {
@@ -48,12 +44,11 @@ public class MedicationMapper {
             return null;
         }
 
-        Medication medication = new Medication();
-        medication.setTradeName(dietarySupplementDto.getTradeName());
-        medication.setPrescription(false);
-        medication.setDietarySupplement(true);
-
-        return medication;
+        return Medication.builder()
+                .isDietarySupplement(true)
+                .isPrescription(false)
+                .tradeName(dietarySupplementDto.getTradeName())
+                .build();
     }
 
     private Set<String> mapLegalEntities(Set<LegalEntity> legalEntities) {

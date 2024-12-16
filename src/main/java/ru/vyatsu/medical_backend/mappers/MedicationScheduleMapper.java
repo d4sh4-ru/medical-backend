@@ -23,15 +23,14 @@ public class MedicationScheduleMapper {
             return null;
         }
 
-        MedicationScheduleDto dto = new MedicationScheduleDto();
-        dto.setId(schedule.getId());
-        dto.setMedicationId(schedule.getMedication() != null ? schedule.getMedication().getId() : null);
-        dto.setUserEmail(schedule.getUser() != null ? schedule.getUser().getEmail() : null);
-        dto.setStartDate(schedule.getStartDate());
-        dto.setEndDate(schedule.getEndDate());
-        dto.setAdministrationMethod(administrationMethodMapper.toAdministrationMethodDto(schedule.getAdministrationMethod()));
-
-        return dto;
+        return MedicationScheduleDto.builder()
+                .id(schedule.getId())
+                .medicationId(schedule.getMedication() != null ? schedule.getMedication().getId() : null)
+                .userEmail(schedule.getUser() != null ? schedule.getUser().getEmail() : null)
+                .startDate(schedule.getStartDate())
+                .endDate(schedule.getEndDate())
+                .administrationMethod(administrationMethodMapper.toAdministrationMethodDto(schedule.getAdministrationMethod()))
+                .build();
     }
 
     public MedicationSchedule toEntity(MedicationScheduleDto dto) {
@@ -39,14 +38,13 @@ public class MedicationScheduleMapper {
             return null;
         }
 
-        MedicationSchedule schedule = new MedicationSchedule();
-        schedule.setId(dto.getId());
-        schedule.setMedication(medicationRepository.findById(dto.getMedicationId()).orElse(null));
-        schedule.setUser(userRepository.findByEmail(dto.getUserEmail()).orElse(null));
-        schedule.setStartDate(dto.getStartDate());
-        schedule.setEndDate(dto.getEndDate());
-        schedule.setAdministrationMethod(administrationMethodMapper.toAdministrationMethodEntity(dto.getAdministrationMethod()));
-
-        return schedule;
+        return MedicationSchedule.builder()
+                .id(dto.getId())
+                .medication(medicationRepository.findById(dto.getMedicationId()).orElse(null))
+                .user(userRepository.findByEmail(dto.getUserEmail()).orElse(null))
+                .startDate(dto.getStartDate())
+                .endDate(dto.getEndDate())
+                .administrationMethod(administrationMethodMapper.toAdministrationMethodEntity(dto.getAdministrationMethod()))
+                .build();
     }
 }

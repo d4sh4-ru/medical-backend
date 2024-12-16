@@ -1,12 +1,14 @@
 package ru.vyatsu.medical_backend.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MedicationScheduleDto {
     private Integer id;
     private Integer medicationId;
