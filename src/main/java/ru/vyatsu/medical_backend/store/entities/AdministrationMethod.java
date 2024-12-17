@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 @Table(name = "administration_methods", schema = "core")
 public class AdministrationMethod {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

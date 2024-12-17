@@ -18,11 +18,11 @@ public class Medication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 255, name = "trade_name")
+    @Column(nullable = false, name = "trade_name")
     @Pattern(regexp = "^[A-Za-zА-Яа-я0-9 ]+$")
     private String tradeName;
 
-    @Column(nullable = true, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String storageConditions;
 
     @Column(nullable = false)
