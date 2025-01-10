@@ -2,9 +2,13 @@ name: Build and Push to GitHub Container Registry
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - "master"
+      - "dev-course"
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - "master"
+      - "dev-course"
 
 jobs:
   build-and-push:
@@ -17,8 +21,18 @@ jobs:
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/medical-backend:latest
+    - name: Build the Docker image for medical-backend
+      run: |
+        if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+          docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/medical-backend:latest
+        elif [[ "${{ github.ref }}" == "refs/heads/dev-course" ]]; then
+          docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/medical-backend-course:latest
+        fi
 
     - name: Push the Docker image to GHCR
-      run: docker push ghcr.io/${{ github.repository_owner }}/medical-backend:latest
+      run: |
+        if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+          docker push ghcr.io/${{ github.repository_owner }}/medical-backend:latest
+        elif [[ "${{ github.ref }}" == "refs/heads/dev-course" ]]; then
+          docker push ghcr.io/${{ github.repository_owner }}/medical-backend-course:latest
+        fi
