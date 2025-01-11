@@ -6,9 +6,9 @@ spring:
     name: medical-backend
 
   datasource:
-    url: jdbc:postgresql://192.168.1.221:5432/medtrack
-    username: postgres
-    password: 1234
+    url: jdbc:postgresql://127.0.0.1:5432/medtrack
+    username: medtrack
+    password: medtrack
     driver-class-name: org.postgresql.Driver
 
   jpa:
