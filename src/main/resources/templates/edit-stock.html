@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование запасов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        span {
+            flex: 1;
+            margin-right: 10px;
+            color: #555;
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function updateStock(stockId, remainingQuantity) {
+            fetch('/edit-stock', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: stockId,
+                    remainingQuantity: remainingQuantity
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Запас успешно обновлен!');
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    alert('Ошибка при обновлении запаса. Проверьте данные.');
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>Редактирование запасов</h1>
+<ul>
+    <li th:each="stock : ${stocks}">
+        <span th:text="${stock.medication.tradeName}"></span>
+        <input type="number"
+               th:id="'remainingQuantity-' + ${stock.id}"
+               th:value="${stock.remainingQuantity}"
+               min="0"/>
+        <button type="button"
+                th:onclick="'updateStock(' + ${stock.id} + ', document.getElementById(\'remainingQuantity-' + ${stock.id} + '\').value)'">
+            Сохранить
+        </button>
+    </li>
+</ul>
+</body>
+</html>

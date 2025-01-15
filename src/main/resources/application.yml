@@ -6,7 +6,7 @@ spring:
     name: medical-backend
 
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/medtrack
+    url: jdbc:postgresql://192.168.1.135:5432/medtrack
     username: medtrack
     password: medtrack
     driver-class-name: org.postgresql.Driver
@@ -14,8 +14,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: core
+
+  thymeleaf:
+    enabled: true

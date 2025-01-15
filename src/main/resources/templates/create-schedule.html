@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Создание нового приёма</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #6a1b9a; /* Фиолетовый цвет */
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #6a1b9a;
+      text-align: left;
+    }
+
+    input, select {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #f4f4f4;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #6a1b9a;
+    }
+
+    button {
+      background-color: #6a1b9a;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #9c4dcc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Создание нового приёма</h1>
+  <form th:action="@{/create-schedule}" th:object="${medicationSchedule}" method="post">
+    <label for="medication">Лекарственный препарат:</label>
+    <select id="medication" th:field="*{medication}">
+      <option th:each="medication : ${medications}" th:value="${medication.id}" th:text="${medication.tradeName}"></option>
+    </select>
+
+    <label for="startDate">Дата начала приёма:</label>
+    <input type="date" id="startDate" th:field="*{startDate}"/>
+
+    <label for="endDate">Дата окончания приёма:</label>
+    <input type="date" id="endDate" th:field="*{endDate}"/>
+
+    <label for="singleDosage">Разовая дозировка:</label>
+    <input type="text" id="singleDosage" th:field="*{administrationMethod.singleDosage}"/>
+
+    <label for="interval">Интервал:</label>
+    <input type="number" id="interval" th:field="*{administrationMethod.interval}"/>
+
+    <label for="administrationTimes">Время приёма:</label>
+    <input type="text" id="administrationTimes" th:field="*{administrationMethod.administrationTimes}"/>
+
+    <button type="submit">Создать</button>
+  </form>
+</div>
+
+</body>
+</html>
